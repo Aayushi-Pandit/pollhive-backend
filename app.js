@@ -10,6 +10,12 @@ const app = express();
 app.use(express.json());
 app.use(compression());
 
+// Run Migrations
+require('./models/user');
+require('./models/poll');
+require('./models/choices');
+require('./models/relations');
+
 // Logging
 app.use(morgan);
 
