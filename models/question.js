@@ -3,20 +3,20 @@ const db = require('../database/connection');
 const logger = require('../logging/logger');
 
 const schema = {
-  choiceId: {
+  questionId: {
     type: sequelize.UUID,
     primaryKey: true
   },
-  choice: {
+  question: {
     type: sequelize.STRING(255),
     allowNull: false
   },
-  questionId: {
+  pollId: {
     type: sequelize.UUID,
     allowNull: false,
     references: {
-      model: 'Questions',
-      key: 'questionId'
+      model: 'Polls',
+      key: 'pollId'
     }
   }
 };
@@ -24,14 +24,14 @@ const schema = {
 const options = {
   timestamps: false
 };
-const Choice = db.define('Choices', schema, options);
+const Question = db.define('Questions', schema, options);
 
-Choice.sync({ alter: true })
+Question.sync({ alter: true })
   .then(() => {
-    logger.info('Choices Migration Made');
+    logger.info('Questions Migration Made');
   })
   .catch(err => {
     logger.error('An Error Occurred:' + err);
   });
 
-module.exports = Choice;
+module.exports = Question;
