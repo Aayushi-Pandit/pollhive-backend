@@ -90,7 +90,7 @@ class PollController {
         error: false,
         message: 'Choice created successfully',
         code: 201,
-        question: newChoice
+        choice: newChoice
       };
     } catch (err) {
       logger.error('An error occurred' + err);
@@ -179,38 +179,38 @@ class PollController {
     }
   }
 
-  static async chooseOption (choiceId, increment){
-      try {
-          const filter = {
-              where: {
-                  choiceId
-              }
-          }
-          const exists = await Choice.findOne();
-          if(!exists){
-              return {
-                  error: true,
-                  message: "No such option exists",
-                  code: 404
-              }
-          }
-          const query = {
-              stat: +increment
-          }
-          await Choice.increment(query, filter)
-          return {
-              error: false,
-              message: "Successfully chosen option",
-              code: 200
-          }
-      } catch(err) {
-          logger.error('An error occurred' + err);
-          return {
-              error: true,
-              message: 'An Error Occurred' + err,
-              code: 500
-          };
+  static async chooseOption (choiceId, increment) {
+    try {
+      const filter = {
+        where: {
+          choiceId
+        }
+      };
+      const exists = await Choice.findOne();
+      if (!exists) {
+        return {
+          error: true,
+          message: 'No such option exists',
+          code: 404
+        };
       }
+      const query = {
+        stat: +increment
+      };
+      await Choice.increment(query, filter);
+      return {
+        error: false,
+        message: 'Successfully chosen option',
+        code: 200
+      };
+    } catch (err) {
+      logger.error('An error occurred' + err);
+      return {
+        error: true,
+        message: 'An Error Occurred' + err,
+        code: 500
+      };
+    }
   }
 }
 
