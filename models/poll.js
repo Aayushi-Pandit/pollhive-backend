@@ -7,7 +7,7 @@ const schema = {
     type: sequelize.UUID,
     primaryKey: true
   },
-  question: {
+  title: {
     type: sequelize.STRING(255),
     allowNull: false
   },

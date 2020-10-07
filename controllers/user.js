@@ -3,6 +3,8 @@ const logger = require('../logging/logger');
 const uuid4 = require('uuid4');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const Poll = require('../models/poll');
+const Question = require('../models/question');
 
 class UserController {
   static async register (name, email, pass) {
@@ -86,7 +88,36 @@ class UserController {
 
   static async fetchDetails (userId) {
     try {
-      const exist = await User.findOne({ where: { userId: userId }, include: [{ all: true }] });
+      const query = {
+        where: {
+          userId: userId
+        },
+        include:
+        [
+          {
+            all: true
+          },
+          {
+            model: Poll,
+            include:
+            [
+              {
+                all: true
+              },
+              {
+                model: Question,
+                include:
+                  [
+                    {
+                      all: true
+                    }
+                  ]
+              }
+            ]
+          }
+        ]
+      };
+      const exist = await User.findOne(query);
       if (!exist) {
         return {
           error: true,

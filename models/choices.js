@@ -18,6 +18,11 @@ const schema = {
       model: 'Questions',
       key: 'questionId'
     }
+  },
+  stat: {
+    type: sequelize.INTEGER,
+    allowNull: true,
+    defaultValue: 0
   }
 };
 

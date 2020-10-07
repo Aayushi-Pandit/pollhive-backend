@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const logger = require('../logging/logger');
 
-exports.isLoggedIn = (req, res, next) => {
+exports.isLoggedIn = async (req, res, next) => {
   const tokenHeader = req.header('Authorization');
   if (!tokenHeader) {
     const response = {

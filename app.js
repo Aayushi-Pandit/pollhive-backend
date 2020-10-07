@@ -22,5 +22,6 @@ app.use(morgan);
 // Mount routes
 app.use('/', routes);
 app.use('/api/user', require('./routes/user'));
+app.use('/api/poll', require('./routes/poll'));
 
 module.exports = app;
