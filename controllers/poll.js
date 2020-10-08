@@ -4,6 +4,7 @@ const Question = require('../models/question');
 const User = require('../models/user');
 const uuid4 = require('uuid4');
 const logger = require('../logging/logger');
+const random=require("random-number");
 
 class PollController {
   static async addPoll (userId, title) {
@@ -16,10 +17,16 @@ class PollController {
           code: 404
         };
       }
+      const options={
+        min:100000,
+        max:999999,
+        integer:true
+      };
       const poll = {
         pollId: uuid4(),
         title: title,
-        userId: userId
+        userId: userId,
+        code:random(options)
       };
       const newPoll = await Poll.create(poll);
       return {
