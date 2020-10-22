@@ -3,9 +3,6 @@ const db = require('../database/connection');
 const logger = require('../logging/logger');
 
 const schema = {
-  code: {
-    type: sequelize.INTEGER,
-  },
   pollId: {
     type: sequelize.UUID,
     primaryKey: true
